@@ -1,9 +1,17 @@
 import GameLogic
-import Board
+from Board import Board
 
-emptyBoard_str = '''___|___|___\n___|___|___\n   |   |   '''
-
-board = Board
-board = board.input_move('[2,2]', 'O', emptyBoard_str)
+board = Board()
+board = board.input_move('[2,2]', 'O')
 board = board.input_move('[1,2]', 'X', board)
 print()
+
+# from Car import Car
+#
+# car1 = Car(4, 'Chevrolet')
+# print(car1.amount_of_gas)
+# car1.add_gas(10)
+#
+# print(car1.brand)
+# print(car1.wheels)
+# print(car1.amount_of_gas)
