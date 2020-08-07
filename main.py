@@ -2,8 +2,8 @@ import GameLogic
 from Board import Board
 
 board = Board()
-board = board.input_move('[2,2]', 'O')
-board = board.input_move('[1,2]', 'X', board)
+is_valid_move, is_game_over = board.input_move('[2,2]')
+is_valid_move, is_game_over = board.input_move('[1,2]')
 print()
 
 # from Car import Car

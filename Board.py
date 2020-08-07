@@ -1,5 +1,5 @@
 class Board:
-    emptyBoard_str = '''___|___|___\n___|___|___\n   |   |   '''
+    board_str = '''___|___|___\n___|___|___\n   |   |   '''
 
     coordinate_dict = {
         '[1,1]': 25,
@@ -13,30 +13,32 @@ class Board:
         '[3,3]': 9
     }
 
+    players = {
+        -1: 'X',
+        1: 'O'
+    }
+
+    current_player_index = -1
 
     def __init__(self):
-       pass
+        pass
 
-    def input_move(self, coordinate, player):
-        return input_move(self, coordinate, player, self.emptyBoard_str)
-
-    def input_move(self, coordinate, player, board):
-        is_valid_move = validate_move(coordinate_dict[coordinate], board)
+    def input_move(self, coordinate):
+        is_valid_move = self.validate_move(self.coordinate_dict[coordinate])
         if is_valid_move:
-            return_board = place_move(coordinate, player, board)
-        else:
-            return_board = board
-        is_game_over = get_game_over(return_board)
-        return return_board, is_valid_move, is_game_over
+            self.board_str = self.place_move(coordinate, self.players[self.current_player_index], self.board_str)
+            self.current_player_index *= -1
+        is_game_over = self.get_game_over(self.board_str)
+        return is_valid_move, is_game_over
 
     def place_move(self, coordinate, player, board):
-        return populate(board, coordinate_dict[coordinate], player)
+        return self.populate(board, self.coordinate_dict[coordinate], player)
 
     def populate(self, board, index, player):
         return board[:index] + player + board[index + 1:]
 
-    def validate_move(self, index, board):
-        if board[index] != 'X' and board[index] != 'O':
+    def validate_move(self, index):
+        if self.board_str[index] != 'X' and self.board_str[index] != 'O':
             return True
         return False
 
@@ -89,4 +91,4 @@ class Board:
         return False
 
     def get_game_over(self, board):
-        return game_over(board) and full_board(board)
+        return self.game_over(board) and self.full_board(board)
