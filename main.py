@@ -1,17 +1,57 @@
-import GameLogic
 from Board import Board
+from AI import AI
+from UserInput import UserInput
 
 board = Board()
-is_valid_move, is_game_over = board.input_move('[2,2]')
-is_valid_move, is_game_over = board.input_move('[1,2]')
-print()
+ai = AI()
+user_input = UserInput()
 
-# from Car import Car
-#
-# car1 = Car(4, 'Chevrolet')
-# print(car1.amount_of_gas)
-# car1.add_gas(10)
-#
-# print(car1.brand)
-# print(car1.wheels)
-# print(car1.amount_of_gas)
+def human_goes_first(board):
+    while True:
+        human_move = user_input.get_input_for_move()
+        human_is_valid_move, is_game_over = board.input_move(human_move)
+        while not human_is_valid_move:
+            print("Invalid move")
+            human_move = user_input.get_input_for_move()
+            human_is_valid_move, is_game_over = board.input_move(human_move)
+        print(board.board_str)
+        if is_game_over:
+            print("Game Over")
+            break
+
+        print('AI is thinking...')
+        ai_move = ai.calculate_move_idiot(board)
+        ai_is_valid_move, is_game_over = board.input_move(ai_move)
+        print(board.board_str)
+        if is_game_over:
+            print("Game Over")
+            break
+
+def ai_goes_first(board):
+    while True:
+        print('AI is thinking...')
+        ai_move = ai.calculate_move_idiot(board)
+        ai_is_valid_move, is_game_over = board.input_move(ai_move)
+        print(board.board_str)
+        if is_game_over:
+            print("Game Over")
+            break
+
+        human_move = user_input.get_input_for_move()
+        human_is_valid_move, is_game_over = board.input_move(human_move)
+        while not human_is_valid_move:
+            print("Invalid move")
+            human_move = user_input.get_input_for_move()
+            human_is_valid_move, is_game_over = board.input_move(human_move)
+        print(board.board_str)
+        if is_game_over:
+            print("Game Over")
+            break
+
+if __name__ == '__main__':
+    is_human_first_player = user_input.is_human_first_player()
+
+    if is_human_first_player:
+        human_goes_first(board)
+    else:
+        ai_goes_first(board)

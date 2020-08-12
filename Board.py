@@ -91,4 +91,5 @@ class Board:
         return False
 
     def get_game_over(self, board):
-        return self.game_over(board) and self.full_board(board)
+        return_boolean = self.game_over(board) or self.full_board(board)
+        return return_boolean
