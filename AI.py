@@ -18,3 +18,4 @@ class AI:
             return '[1,2]'
         if board.board_str[33] not in ['X', 'O']:
             return '[1,3]'
+

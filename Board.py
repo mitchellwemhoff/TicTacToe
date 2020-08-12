@@ -42,11 +42,6 @@ class Board:
             return True
         return False
 
-    def validate_coordinate(self, coordinate):
-        if coordinate in ['1','2','3']:
-            return True
-        return False
-
     def game_over(self, board):
         if board[1] == 'X' and board[5] == 'X' and board[9] == 'X':
             return True
