@@ -103,6 +103,13 @@ class AI:
                 return True
         return False
 
+    def lane_move_counter(self, moves, lane):
+        count = 0
+        for position in lane:
+            if position in moves:
+                count += 1
+        return count
+
     def moves_until_human_wins(self, moves_dict):
         ai_moves = moves_dict[self.player]
         human_moves = moves_dict[self.other_player]
@@ -134,11 +141,18 @@ class AI:
     def play_offense(self, moves_dict):
         ai_moves = moves_dict[self.player]
         human_moves = moves_dict[self.other_player]
-        for lane in self.winning_lanes:
-            if self.do_moves_exist_in_lane(ai_moves, lane) and not self.do_moves_exist_in_lane(human_moves, lane):
-                for position in lane:
-                    if position not in ai_moves:
-                        return self.coordinate_dict[position]
+        if not self.moves_until_ai_wins(moves_dict) == 1:
+            for lane in self.winning_lanes:
+                if self.do_moves_exist_in_lane(ai_moves, lane) and not self.do_moves_exist_in_lane(human_moves, lane):
+                    for position in lane:
+                        if position not in ai_moves:
+                            return self.coordinate_dict[position]
+        if self.moves_until_ai_wins(moves_dict) == 1:
+            for lane in self.winning_lanes:
+                if self.do_moves_exist_in_lane(ai_moves, lane) and not self.do_moves_exist_in_lane(human_moves, lane) and self.lane_move_counter(ai_moves, lane) == 2:
+                    for position in lane:
+                        if position not in ai_moves:
+                            return self.coordinate_dict[position]
         return self.call_it_quits(moves_dict)
 
     def call_it_quits(self, moves_dict):
