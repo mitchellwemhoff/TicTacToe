@@ -20,7 +20,7 @@ def human_goes_first(board):
             break
 
         print('AI is thinking...')
-        ai_move = ai.calculate_move_idiot(board)
+        ai_move = ai.calculate_move_genius(board)
         ai_is_valid_move, is_game_over = board.input_move(ai_move)
         print(board.board_str)
         if is_game_over:
@@ -30,7 +30,7 @@ def human_goes_first(board):
 def ai_goes_first(board):
     while True:
         print('AI is thinking...')
-        ai_move = ai.calculate_move_idiot(board)
+        ai_move = ai.calculate_move_genius(board)
         ai_is_valid_move, is_game_over = board.input_move(ai_move)
         print(board.board_str)
         if is_game_over:
