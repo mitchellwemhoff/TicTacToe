@@ -29,7 +29,8 @@ class Board:
             self.board_str = self.place_move(coordinate, self.players[self.current_player_index], self.board_str)
             self.current_player_index *= -1
         is_game_over = self.get_game_over(self.board_str)
-        return is_valid_move, is_game_over
+        is_cats_game = self.get_cats_came(self.board_str)
+        return is_valid_move, is_game_over, is_cats_game
 
     def place_move(self, coordinate, player, board):
         return self.populate(board, self.coordinate_dict[coordinate], player)
@@ -86,5 +87,10 @@ class Board:
         return False
 
     def get_game_over(self, board):
-        return_boolean = self.game_over(board) or self.full_board(board)
+        #return_boolean = self.game_over(board) or self.full_board(board)
+        return_boolean = self.game_over(board)
+        return return_boolean
+
+    def get_cats_came(self, board):
+        return_boolean = self.full_board(board)
         return return_boolean
